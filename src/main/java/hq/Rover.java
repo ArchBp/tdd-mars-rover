@@ -15,13 +15,13 @@ public class Rover {
         this.position = position;
     }
 
-    public Position move(char ...commands) {
+    public Position move(char... commands) {
         for (char command : commands) {
             if (TURN_RIGHT == command) {
                 turnRight();
             } else if (TURN_LEFT == command) {
                 turnLeft();
-            }else if (MOVE_BACKWARD == command) {
+            } else if (MOVE_BACKWARD == command) {
                 moveBackward();
             } else if (MOVE_FORWARD == command) {
                 moveForward();
@@ -55,48 +55,39 @@ public class Rover {
     private void moveForward() {
         Coordinates coordinates = position.getCoordinates();
         Direction direction = position.getDirection();
-        int x = coordinates.getX();
-        int y = coordinates.getY();
         if (Direction.N.equals(direction)) {
-            y++;
+            coordinates.incrementY();
         } else if (Direction.S.equals(direction)) {
-            y--;
+            coordinates.decrementY();
         } else if (Direction.E.equals(direction)) {
-            if (x == 5)
-                x = 1;
+            if (coordinates.getX() == 5)
+                coordinates.setX(1);
             else
-                x++;
+                coordinates.incrementX();
         } else if (Direction.W.equals(direction)) {
-            if (x == 1)
-                x = 5;
+            if (coordinates.getX() == 1)
+                coordinates.setX(5);
             else
-                x--;
+                coordinates.decrementX();
         }
-        coordinates.setY(y);
-        coordinates.setX(x);
     }
 
     private void moveBackward() {
         Coordinates coordinates = position.getCoordinates();
         Direction direction = position.getDirection();
-        int x = coordinates.getX();
-        int y = coordinates.getY();
         if (Direction.N.equals(direction))
-            y--;
+            coordinates.decrementY();
         else if (Direction.S.equals(direction))
-            y++;
+            coordinates.incrementY();
         else if (Direction.E.equals(direction))
-            if (x == 1)
-                x = 5;
+            if (coordinates.getX() == 1)
+                coordinates.setX(5);
             else
-                x--;
+                coordinates.decrementX();
         else if (Direction.W.equals(direction))
-            if (x == 5)
-                x = 1;
+            if (coordinates.getX() == 5)
+                coordinates.setX(1);
             else
-                x++;
-
-        coordinates.setY(y);
-        coordinates.setX(x);
+                coordinates.incrementX();
     }
 }
