@@ -9,6 +9,8 @@ public class Rover {
     public static final char MOVE_FORWARD = 'f';
     public static final char TURN_RIGHT = 'r';
     public static final char TURN_LEFT = 'l';
+    public static final int EDGE_ONE = 1;
+    public static final int EDGE_FIVE = 5;
     private final Position position;
 
     public Rover(Position position) {
@@ -21,10 +23,10 @@ public class Rover {
                 turnRight();
             } else if (TURN_LEFT == command) {
                 turnLeft();
-            } else if (MOVE_BACKWARD == command) {
-                moveBackward();
             } else if (MOVE_FORWARD == command) {
                 moveForward();
+            } else if (MOVE_BACKWARD == command) {
+                moveBackward();
             }
         }
         return position;
@@ -56,17 +58,27 @@ public class Rover {
         Coordinates coordinates = position.getCoordinates();
         Direction direction = position.getDirection();
         if (Direction.N.equals(direction)) {
-            coordinates.incrementY();
+            if(coordinates.getY() == EDGE_FIVE){
+                coordinates.setX(6 - coordinates.getX());
+                position.setDirection(Direction.S);
+            } else {
+                coordinates.incrementY();
+            }
         } else if (Direction.S.equals(direction)) {
-            coordinates.decrementY();
+            if(coordinates.getY() == EDGE_ONE){
+                coordinates.setX(6 - coordinates.getX());
+                position.setDirection(Direction.N);
+            } else {
+                coordinates.decrementY();
+            }
         } else if (Direction.E.equals(direction)) {
-            if (coordinates.getX() == 5)
-                coordinates.setX(1);
+            if (coordinates.getX() == EDGE_FIVE)
+                coordinates.setX(EDGE_ONE);
             else
                 coordinates.incrementX();
         } else if (Direction.W.equals(direction)) {
-            if (coordinates.getX() == 1)
-                coordinates.setX(5);
+            if (coordinates.getX() == EDGE_ONE)
+                coordinates.setX(EDGE_FIVE);
             else
                 coordinates.decrementX();
         }
@@ -76,17 +88,27 @@ public class Rover {
         Coordinates coordinates = position.getCoordinates();
         Direction direction = position.getDirection();
         if (Direction.N.equals(direction))
-            coordinates.decrementY();
+            if(coordinates.getY() == EDGE_ONE){
+                coordinates.setX(6 - coordinates.getX());
+                position.setDirection(Direction.S);
+            } else {
+                coordinates.decrementY();
+            }
         else if (Direction.S.equals(direction))
-            coordinates.incrementY();
+            if(coordinates.getY() == EDGE_FIVE){
+                coordinates.setX(6 - coordinates.getX());
+                position.setDirection(Direction.N);
+            } else {
+                coordinates.incrementY();
+            }
         else if (Direction.E.equals(direction))
-            if (coordinates.getX() == 1)
-                coordinates.setX(5);
+            if (coordinates.getX() == EDGE_ONE)
+                coordinates.setX(EDGE_FIVE);
             else
                 coordinates.decrementX();
         else if (Direction.W.equals(direction))
-            if (coordinates.getX() == 5)
-                coordinates.setX(1);
+            if (coordinates.getX() == EDGE_FIVE)
+                coordinates.setX(EDGE_ONE);
             else
                 coordinates.incrementX();
     }

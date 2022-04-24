@@ -40,4 +40,12 @@ public class Position {
     public int hashCode() {
         return Objects.hash(coordinates, direction);
     }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "coordinates=" + coordinates +
+                ", direction=" + direction +
+                '}';
+    }
 }
