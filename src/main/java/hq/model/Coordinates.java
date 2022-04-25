@@ -3,11 +3,14 @@ package hq.model;
 import java.util.Objects;
 
 public class Coordinates {
-    //Todo Hassen : Should keep Integer or use primitive ?
+    public static final String X_COORDINATE_COULD_NOT_BE_NULL = "X coordinate could not be null";
+    public static final String Y_COORDINATE_COULD_NOT_BE_NULL = "Y coordinate could not be null";
     private Integer x;
     private Integer y;
 
-    public Coordinates(int x, int y) {
+    public Coordinates(Integer x, Integer y) {
+        Objects.requireNonNull(x, X_COORDINATE_COULD_NOT_BE_NULL);
+        Objects.requireNonNull(y, Y_COORDINATE_COULD_NOT_BE_NULL);
         this.x = x;
         this.y = y;
     }
@@ -46,12 +49,11 @@ public class Coordinates {
 
     @Override
     public boolean equals(Object o) {
-        //Todo Hassen : attention x and y could be null
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coordinates that = (Coordinates) o;
-        return x.equals(that.x) &&
-                y.equals(that.y);
+        return Objects.equals(x, that.x) &&
+                Objects.equals(y, that.y);
     }
 
     @Override
