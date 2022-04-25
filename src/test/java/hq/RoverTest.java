@@ -1,13 +1,15 @@
 package hq;
 
 import hq.enums.Direction;
+import hq.exception.NullCommandException;
+import hq.exception.UnknownCommandException;
 import hq.model.Coordinates;
-import hq.model.Position;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
@@ -40,355 +42,359 @@ public class RoverTest {
     @Test
     void mustMoveRoverForwardInTheNorthDirection() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.N);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Position newPosition = rover.move('f');
+        Coordinates newCoordinates = rover.move(new char[] {'f'});
 
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(2);
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(2);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
     }
 
     @Test
     void mustConnectToVerticalEdgeWhenRoverIsHeadingWest() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.W);
-        final Rover rover = new Rover(initialPosition);
-        Position newPosition = rover.move('f');
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(5);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(1);
+        final Rover rover = new Rover(startingPoint, Direction.W);
+
+        Coordinates newCoordinates = rover.move(new char[] {'f'});
+
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
     }
 
     @Test
     void mustConnectToVerticalEdgeWhenRoverIsHeadingEast() {
         Coordinates startingPoint = new Coordinates(5, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.E);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.E);
 
-        Position newPosition = rover.move('f');
+        Coordinates newCoordinates = rover.move(new char[] {'f'});
 
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(1);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
     }
 
     @Test
     void mustMoveRoverForwardInTheSouthDirection() {
         Coordinates startingPoint = new Coordinates(1, 4);
-        final Position initialPosition = new Position(startingPoint, Direction.S);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Position newPosition = rover.move('f');
+        Coordinates newCoordinates = rover.move(new char[] {'f'});
 
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(3);
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(3);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
     }
 
     @Test
     void mustConnectHorizontalEdgeMovingForward() {
         Coordinates startingPoint = new Coordinates(1, 5);
-        final Position initialPosition = new Position(startingPoint, Direction.N);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Position newPosition = rover.move('f');
+        Coordinates newCoordinates = rover.move(new char[] {'f'});
 
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(5);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(5);
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.S);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(5);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.S);
     }
 
     @Test
     void mustConnectHorizontalEdgeExample2MovingForward() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.S);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Position newPosition = rover.move('f');
+        Coordinates newCoordinates = rover.move(new char[] {'f'});
 
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(5);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(1);
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.N);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.N);
     }
 
     @Test
     void mustConnectHorizontalEdgeExample3MovingForward() {
         Coordinates startingPoint = new Coordinates(3, 5);
-        final Position initialPosition = new Position(startingPoint, Direction.N);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Position newPosition = rover.move('f');
+        Coordinates newCoordinates = rover.move(new char[] {'f'});
 
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(3);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(5);
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.S);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(3);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(5);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.S);
     }
 
     @Test
     void mustConnectHorizontalEdgeMovingBackward() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.N);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Position newPosition = rover.move('b');
+        Coordinates newCoordinates = rover.move(new char[] {'b'});
 
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(5);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(1);
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.S);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.S);
     }
 
     @Test
     void mustConnectHorizontalEdgeExample2MovingBackward() {
         Coordinates startingPoint = new Coordinates(1, 5);
-        final Position initialPosition = new Position(startingPoint, Direction.S);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Position newPosition = rover.move('b');
+        Coordinates newCoordinates = rover.move(new char[] {'b'});
 
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(5);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(5);
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.N);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(5);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.N);
     }
 
     @Test
     void mustConnectHorizontalEdgeExample3MovingBackward() {
         Coordinates startingPoint = new Coordinates(3, 5);
-        final Position initialPosition = new Position(startingPoint, Direction.S);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Position newPosition = rover.move('b');
+        Coordinates newCoordinates = rover.move(new char[] {'b'});
 
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(3);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(5);
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.N);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(3);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(5);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.N);
     }
 
     @Test
     void mustMoveRoverForwardHInTheEastDirection() {
         Coordinates startingPoint = new Coordinates(1, 4);
-        final Position initialPosition = new Position(startingPoint, Direction.E);
-        final Rover rover = new Rover(initialPosition);
-        Position newPosition = rover.move('f');
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(4);
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(2);
+        final Rover rover = new Rover(startingPoint, Direction.E);
+        Coordinates newCoordinates = rover.move(new char[] {'f'});
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(4);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(2);
     }
 
     @Test
     void mustMoveRoverForwardInTheWestDirection() {
         Coordinates startingPoint = new Coordinates(2, 4);
-        final Position initialPosition = new Position(startingPoint, Direction.W);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Position newPosition = rover.move('f');
+        Coordinates newCoordinates = rover.move(new char[] {'f'});
 
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(4);
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(4);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
     }
 
     @Test
     void testMovingBackwardWhenRoverIsHeadingNorth() {
         Coordinates startingPoint = new Coordinates(1, 2);
-        final Position initialPosition = new Position(startingPoint, Direction.N);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Position newPosition = rover.move('b');
+        Coordinates newCoordinates = rover.move(new char[] {'b'});
 
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(1);
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
     }
 
     @Test
     void testMovingBackwardWhenRoverIsHeadingSouth() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.S);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Position newPosition = rover.move('b');
+        Coordinates newCoordinates = rover.move(new char[] {'b'});
 
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(2);
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(2);
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
     }
 
     @Test
     void testMovingBackwardWhenRoverIsHeadingEast() {
         Coordinates startingPoint = new Coordinates(2, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.E);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.E);
 
-        Position newPosition = rover.move('b');
+        Coordinates newCoordinates = rover.move(new char[] {'b'});
 
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(1);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
     }
 
     @Test
     void testMovingBackwardWhenRoverIsHeadingWest() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.W);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Position newPosition = rover.move('b');
+        Coordinates newCoordinates = rover.move(new char[] {'b'});
 
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(2);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(2);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
     }
 
     @Test
     void mustConnectToVerticalEdgeWhenRoverIsMovingInTheWestDirectionBackward() {
         Coordinates startingPoint = new Coordinates(5, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.W);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Position newPosition = rover.move('b');
+        Coordinates newCoordinates = rover.move(new char[] {'b'});
 
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(1);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
     }
 
     @Test
     void mustConnectToVerticalEdgeWhenRoverIsMovingInTheEastDirectionBackward() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.E);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.E);
 
-        Position newPosition = rover.move('b');
+        Coordinates newCoordinates = rover.move(new char[] {'b'});
 
-        Assertions.assertThat(newPosition).isNotNull();
-        Assertions.assertThat(newPosition.getCoordinates().getX()).isEqualTo(5);
-        Assertions.assertThat(newPosition.getCoordinates().getY()).isEqualTo(1);
+        Assertions.assertThat(newCoordinates).isNotNull();
+        Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
+        Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
     }
 
     @Test
     void mustTurnRoverFromNorthToEast() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.N);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Position newPosition = rover.move('r');
+        Coordinates returnedCoordinates = rover.move(new char[] {'r'});
 
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.E);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.E);
+        Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
     }
 
     @Test
     void mustTurnRoverFromEastToSouth() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.E);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.E);
 
-        Position newPosition = rover.move('r');
+        Coordinates returnedCoordinates = rover.move(new char[] {'r'});
 
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.S);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.S);
+        Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
     }
 
     @Test
     void mustTurnRoverFromSouthToWest() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.S);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Position newPosition = rover.move('r');
+        Coordinates returnedCoordinates = rover.move(new char[] {'r'});
 
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.W);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.W);
+        Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
     }
 
     @Test
     void mustTurnRoverFromWestToNorth() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.W);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Position newPosition = rover.move('r');
+        Coordinates returnedCoordinates = rover.move(new char[] {'r'});
 
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.N);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.N);
+        Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
     }
 
     @Test
     void mustTurnRoverFromEastToNorth() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.E);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.E);
 
-        Position newPosition = rover.move('l');
+        Coordinates returnedCoordinates = rover.move(new char[] {'l'});
 
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.N);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.N);
+        Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
     }
 
     @Test
     void mustTurnRoverFromSouthToEast() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.S);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Position newPosition = rover.move('l');
+        Coordinates returnedCoordinates = rover.move(new char[] {'l'});
 
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.E);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.E);
+        Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
     }
 
     @Test
     void mustTurnRoverFromWestToSouth() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.W);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Position newPosition = rover.move('l');
+        Coordinates returnedCoordinates = rover.move(new char[] {'l'});
 
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.S);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.S);
+        Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
     }
 
     @Test
     void mustTurnRoverFromNorthToWest() {
         Coordinates startingPoint = new Coordinates(1, 1);
-        final Position initialPosition = new Position(startingPoint, Direction.N);
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Position newPosition = rover.move('l');
+        Coordinates returnedCoordinates = rover.move(new char[] {'l'});
 
-        Assertions.assertThat(newPosition.getDirection()).isEqualTo(Direction.W);
+        Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.W);
+        Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
     }
 
     @ParameterizedTest
     @MethodSource("generateMultiRoverCommandsScenarios")
     void mustReturnExpectedPositionAfterMultipleCommands(Position initialPosition, char[] commands, Position expectedFinalPosition) {
-        final Rover rover = new Rover(initialPosition);
+        final Rover rover = new Rover(initialPosition.getCoordinates(), initialPosition.getDirection());
 
-        Position newPosition = rover.move(commands);
+        Coordinates newCoordinates = rover.move(commands);
 
-        Assertions.assertThat(newPosition).isEqualTo(expectedFinalPosition);
+        Assertions.assertThat(newCoordinates).isEqualTo(expectedFinalPosition.getCoordinates());
+        Assertions.assertThat(rover.getDirection()).isEqualTo(expectedFinalPosition.getDirection());
     }
 
-//    @Test
-//    void mustTestUnknownCommands() {
-//        Assertions.fail("Not implemented");
-//    }
-//
-//    @Test
-//    void mustTestNullCommands() {
-//        Assertions.fail("Not implemented");
-//    }
-//
-//    @Test
-//    void doNotForgetEdgeCases() {
-//        Assertions.fail("Not implemented");
-//    }
-//
-//
-//    @Test
-//    void mustConnectToHorizontalEdgeWhenRoverIsHeadingNorth() {
-//        Assertions.fail("not implemented");
-//    }
-//
-//    @Test
-//    void mustConnectToHorizontalEdgeWhenRoverIsHeadingSouth() {
-//        Assertions.fail("not implemented");
-//    }
+    @ParameterizedTest
+    @ValueSource(chars = {'e', 'g', '3', 'w', 'F', 'R', ' '})
+    void mustThrowUnknownCommandException(char command) {
+        Coordinates startingPoint = new Coordinates(1, 1);
+        final Rover rover = new Rover(startingPoint, Direction.N);
 
+        final Throwable throwable = Assertions.catchThrowable(() -> rover.move(new char[]{command}));
+
+        Assertions.assertThat(throwable).isExactlyInstanceOf(UnknownCommandException.class);
+    }
+
+    @Test
+    void mustHandleNullCommands() {
+        Coordinates startingPoint = new Coordinates(1, 1);
+        final Rover rover = new Rover(startingPoint, Direction.N);
+
+        final Throwable throwable = Assertions.catchThrowable(() -> rover.move(null));
+
+        Assertions.assertThat(throwable).isExactlyInstanceOf(NullCommandException.class);
+    }
+
+    @Test
+    void doNotForgetEdgeCases() {
+        Assertions.fail("Not implemented");
+    }
+
+
+
+    public static class Position {
+        private final Coordinates coordinates;
+        private final Direction direction;
+
+        public Position(Coordinates coordinates, Direction direction) {
+            this.coordinates = coordinates;
+            this.direction = direction;
+        }
+
+        public Coordinates getCoordinates() {
+            return coordinates;
+        }
+
+        public Direction getDirection() {
+            return direction;
+        }
+    }
 }
