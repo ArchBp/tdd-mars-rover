@@ -58,10 +58,10 @@ public class Coordinates {
 
     @Override
     public String toString() {
-        return "Coordinates{" +
+        return "coordinates (" +
                 "x=" + x +
                 ", y=" + y +
-                '}';
+                ')';
     }
 
     @Override

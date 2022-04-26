@@ -355,42 +355,50 @@ public class RoverTest {
 
     @Test
     void mustReturnToCoordinates2x1yWhenObstacleIsEncounteredAtCoordinates3x1y() {
-        final Rover rover = new Rover(new Coordinates(1, 1), Direction.E, List.of(new Coordinates(3, 1)));
+        final Coordinates obstacle = new Coordinates(3, 1);
+        final Rover rover = new Rover(new Coordinates(1, 1), Direction.E, List.of(obstacle));
 
         final Coordinates coordinates = rover.move(new char[]{'f', 'f'});
 
         final Coordinates expectedCoordinates = new Coordinates(2, 1);
         Assertions.assertThat(coordinates).isEqualTo(expectedCoordinates);
+        Assertions.assertThat(rover.getMessage()).isEqualTo("Obstacle found at coordinates (x=3, y=1)");
     }
 
     @Test
     void mustReturnToCoordinates2x3yWhenObstacleIsEncounteredAtCoordinates2x4y() {
-        final Rover rover = new Rover(new Coordinates(2, 1), Direction.N, List.of(new Coordinates(2, 4)));
+        final Coordinates obstacle = new Coordinates(2, 4);
+        final Rover rover = new Rover(new Coordinates(2, 1), Direction.N, List.of(obstacle));
 
         final Coordinates coordinates = rover.move(new char[]{'f', 'f', 'f'});
 
         final Coordinates expectedCoordinates = new Coordinates(2, 3);
         Assertions.assertThat(coordinates).isEqualTo(expectedCoordinates);
+        Assertions.assertThat(rover.getMessage()).isEqualTo("Obstacle found at coordinates (x=2, y=4)");
     }
 
     @Test
     void mustReturnToCoordinates1x3yWhenObstacleIsEncounteredAtEdgeCoordinates5x3() {
-        final Rover rover = new Rover(new Coordinates(2, 3), Direction.E, List.of(new Coordinates(5, 3)));
+        final Coordinates obstacle = new Coordinates(5, 3);
+        final Rover rover = new Rover(new Coordinates(2, 3), Direction.E, List.of(obstacle));
 
         final Coordinates coordinates = rover.move(new char[]{'b', 'b'});
 
         final Coordinates expectedCoordinates = new Coordinates(1, 3);
         Assertions.assertThat(coordinates).isEqualTo(expectedCoordinates);
+        Assertions.assertThat(rover.getMessage()).isEqualTo("Obstacle found at coordinates (x=5, y=3)");
     }
 
     @Test
     void mustReturnToCoordinates5x2yWhenObstacleIsEncounteredAtEdgeCoordinates1x2() {
-        final Rover rover = new Rover(new Coordinates(4, 2), Direction.W, List.of(new Coordinates(1, 2)));
+        final Coordinates obstacle = new Coordinates(1, 2);
+        final Rover rover = new Rover(new Coordinates(4, 2), Direction.W, List.of(obstacle));
 
         final Coordinates coordinates = rover.move(new char[]{'b', 'b'});
 
         final Coordinates expectedCoordinates = new Coordinates(5, 2);
         Assertions.assertThat(coordinates).isEqualTo(expectedCoordinates);
+        Assertions.assertThat(rover.getMessage()).isEqualTo("Obstacle found at coordinates (x=1, y=2)");
     }
 
 

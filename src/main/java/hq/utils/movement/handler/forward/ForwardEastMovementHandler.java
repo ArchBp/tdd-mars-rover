@@ -13,11 +13,11 @@ public class ForwardEastMovementHandler extends LinearMovementHandler {
     @Override
     public Coordinates calculateNewCoordinates(Rover rover) {
         Coordinates actualCoordinates = rover.getCoordinates();
-        Coordinates newCoordinates = new Coordinates(actualCoordinates.getX(), actualCoordinates.getY());
-        if (actualCoordinates.getX() == 5)
-            newCoordinates.setX(1);
+        Coordinates coordinatesToBeReturned = new Coordinates(actualCoordinates.getX(), actualCoordinates.getY());
+        if (coordinatesToBeReturned.getX() == 5)
+            coordinatesToBeReturned.setX(1);
         else
-            newCoordinates.incrementX();
-        return newCoordinates;
+            coordinatesToBeReturned.incrementX();
+        return coordinatesToBeReturned;
     }
 }

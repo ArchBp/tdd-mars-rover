@@ -14,13 +14,13 @@ public class BackwardSouthMovementHandler extends LinearMovementHandler {
     @Override
     public Coordinates calculateNewCoordinates(Rover rover) {
         Coordinates actualCoordinates = rover.getCoordinates();
-        Coordinates newCoordinates = new Coordinates(actualCoordinates.getX(), actualCoordinates.getY());
-        if (actualCoordinates.getY() == HIGH_EDGE) {
-            newCoordinates.setX((HIGH_EDGE - actualCoordinates.getX()) + 1);
+        Coordinates coordinatesToBeReturned = new Coordinates(actualCoordinates.getX(), actualCoordinates.getY());
+        if (coordinatesToBeReturned.getY() == HIGH_EDGE) {
+            coordinatesToBeReturned.setX((HIGH_EDGE - actualCoordinates.getX()) + 1);
             rover.setDirection(Direction.N);
         } else {
-            newCoordinates.incrementY();
+            coordinatesToBeReturned.incrementY();
         }
-        return newCoordinates;
+        return coordinatesToBeReturned;
     }
 }

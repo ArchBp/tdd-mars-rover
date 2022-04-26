@@ -16,8 +16,10 @@ public abstract class LinearMovementHandler extends MovementHandler {
     public void move(Rover rover) {
         if (direction == rover.getDirection()) {
             final Coordinates calculatedNewCoordinates = calculateNewCoordinates(rover);
-            if(rover.isNoObstacleAt(calculatedNewCoordinates)){
+            if(rover.isThereNoObstacleAt(calculatedNewCoordinates)){
                 rover.moveTo(calculatedNewCoordinates);
+            } else {
+                rover.setMessage("Obstacle found at "+ calculatedNewCoordinates);
             }
         } else if (getNextMovementHandler() != null) {
             getNextMovementHandler().move(rover);

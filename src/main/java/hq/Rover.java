@@ -13,7 +13,7 @@ public class Rover {
     public static final String ROVER_DIRECTION_COULD_NOT_BE_NULL = "Rover direction could not be null";
 
     private Coordinates coordinates;
-
+    private String message;
     private final CommandExecutor commandExecutor = CommandExecutor.getInstance();
     private final List<Coordinates> obstacles = new ArrayList<>();
     private Direction direction;
@@ -38,7 +38,7 @@ public class Rover {
         return coordinates;
     }
 
-    public boolean isNoObstacleAt(Coordinates calculatedNewCoordinates){
+    public boolean isThereNoObstacleAt(Coordinates calculatedNewCoordinates){
         return !obstacles.contains(calculatedNewCoordinates);
     }
 
@@ -56,5 +56,13 @@ public class Rover {
 
     public Coordinates getCoordinates() {
         return coordinates;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }
