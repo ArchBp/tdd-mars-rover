@@ -11,11 +11,12 @@ import java.util.Objects;
 public class Rover {
     public static final String ROVER_COORDINATES_COULD_NOT_BE_NULL = "Rover coordinates could not be null";
     public static final String ROVER_DIRECTION_COULD_NOT_BE_NULL = "Rover direction could not be null";
-    private final Coordinates coordinates;
+
+    private Coordinates coordinates;
+
     private final CommandExecutor commandExecutor = CommandExecutor.getInstance();
     private final List<Coordinates> obstacles = new ArrayList<>();
     private Direction direction;
-
 
     public Rover(Coordinates coordinates, Direction direction) {
         Objects.requireNonNull(coordinates, ROVER_COORDINATES_COULD_NOT_BE_NULL);
@@ -37,8 +38,8 @@ public class Rover {
         return coordinates;
     }
 
-    public boolean isObstacleFound(){
-        return obstacles.contains(coordinates);
+    public boolean isNoObstacleAt(Coordinates calculatedNewCoordinates){
+        return !obstacles.contains(calculatedNewCoordinates);
     }
 
     public Direction getDirection() {
@@ -47,6 +48,10 @@ public class Rover {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public void moveTo(Coordinates coordinates) {
+        this.coordinates = coordinates;
     }
 
     public Coordinates getCoordinates() {

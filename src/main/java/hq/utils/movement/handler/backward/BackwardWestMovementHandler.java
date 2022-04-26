@@ -11,11 +11,13 @@ public class BackwardWestMovementHandler extends LinearMovementHandler {
     }
 
     @Override
-    public void changePosition(Rover rover) {
-        Coordinates coordinates = rover.getCoordinates();
-        if (coordinates.getX() == HIGH_EDGE)
-            coordinates.setX(LOW_EDGE);
+    public Coordinates calculateNewCoordinates(Rover rover) {
+        Coordinates actualCoordinates = rover.getCoordinates();
+        Coordinates newCoordinates = new Coordinates(actualCoordinates.getX(), actualCoordinates.getY());
+        if (actualCoordinates.getX() == HIGH_EDGE)
+            newCoordinates.setX(LOW_EDGE);
         else
-            coordinates.incrementX();
+            newCoordinates.incrementX();
+        return newCoordinates;
     }
 }

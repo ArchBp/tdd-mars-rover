@@ -12,15 +12,7 @@ public abstract class MovementHandler {
         this.nextMovementHandler = movementHandler;
     }
 
-    public void stepBack(MovementHandler movementHandler){
-        this.stepBackMovementHandler = movementHandler;
-    }
-
     public MovementHandler getNextMovementHandler() {
         return nextMovementHandler;
-    }
-
-    public MovementHandler getStepBackMovementHandler() {
-        return stepBackMovementHandler;
     }
 }

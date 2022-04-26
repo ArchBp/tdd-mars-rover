@@ -12,13 +12,15 @@ public class BackwardNorthMovementHandler extends LinearMovementHandler {
     }
 
     @Override
-    public void changePosition(Rover rover) {
-        Coordinates coordinates = rover.getCoordinates();
-        if (coordinates.getY() == LOW_EDGE) {
-            coordinates.setX((HIGH_EDGE - coordinates.getX()) + 1);
+    public Coordinates calculateNewCoordinates(Rover rover) {
+        Coordinates actualCoordinates = rover.getCoordinates();
+        Coordinates newCoordinates = new Coordinates(actualCoordinates.getX(), actualCoordinates.getY());
+        if (actualCoordinates.getY() == LOW_EDGE) {
+            newCoordinates.setX((HIGH_EDGE - actualCoordinates.getX()) + 1);
             rover.setDirection(Direction.S);
         } else {
-            coordinates.decrementY();
+            newCoordinates.decrementY();
         }
+        return newCoordinates;
     }
 }

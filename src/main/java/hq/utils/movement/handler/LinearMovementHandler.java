@@ -2,6 +2,7 @@ package hq.utils.movement.handler;
 
 import hq.Rover;
 import hq.enums.Direction;
+import hq.model.Coordinates;
 
 public abstract class LinearMovementHandler extends MovementHandler {
     public static final int HIGH_EDGE = 5;
@@ -14,9 +15,9 @@ public abstract class LinearMovementHandler extends MovementHandler {
 
     public void move(Rover rover) {
         if (direction == rover.getDirection()) {
-            changePosition(rover);
-            if(rover.isObstacleFound()){
-                getStepBackMovementHandler().move(rover);
+            final Coordinates calculatedNewCoordinates = calculateNewCoordinates(rover);
+            if(rover.isNoObstacleAt(calculatedNewCoordinates)){
+                rover.moveTo(calculatedNewCoordinates);
             }
         } else if (getNextMovementHandler() != null) {
             getNextMovementHandler().move(rover);
@@ -24,5 +25,5 @@ public abstract class LinearMovementHandler extends MovementHandler {
     }
 
 
-    public abstract void changePosition(Rover rover);
+    public abstract Coordinates calculateNewCoordinates(Rover rover);
 }
