@@ -15,10 +15,14 @@ public abstract class LinearMovementHandler extends MovementHandler {
     public void move(Rover rover) {
         if (direction == rover.getDirection()) {
             changePosition(rover);
+            if(rover.isObstacleFound()){
+                getStepBackMovementHandler().move(rover);
+            }
         } else if (getNextMovementHandler() != null) {
             getNextMovementHandler().move(rover);
         }
     }
+
 
     public abstract void changePosition(Rover rover);
 }

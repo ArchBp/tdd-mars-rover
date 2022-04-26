@@ -1,6 +1,7 @@
 package hq.utils.command.handler;
 
 import hq.Rover;
+import hq.model.Coordinates;
 
 public class BackwardCommandHandler extends CommandHandler{
 

@@ -15,20 +15,23 @@ public class CommandExecutor {
 
         final BackwardMovementHandlerChainCreator backwardMovementHandlerChainCreator = BackwardMovementHandlerChainCreator.getInstance();
         final ForwardMovementHandlerChainCreator forwardMovementHandlerChainCreator = ForwardMovementHandlerChainCreator.getInstance();
+        final LeftMovementHandler leftMovementHandler = new LeftMovementHandler();
+        final RightMovementHandler rightMovementHandler = new RightMovementHandler();
 
         ForwardCommandHandler forwardCommandHandler = new ForwardCommandHandler();
         BackwardCommandHandler backwardCommandHandler = new BackwardCommandHandler();
+        RightCommandHandler rightCommandHandler = new RightCommandHandler();
+        LeftCommandHandler leftCommandHandler = new LeftCommandHandler();
+        UnknownCommandHandler unknownCommandHandler = new UnknownCommandHandler();
+
         forwardCommandHandler.next(backwardCommandHandler);
         forwardCommandHandler.child(forwardMovementHandlerChainCreator.getChain());
-        LeftCommandHandler leftCommandHandler = new LeftCommandHandler();
         backwardCommandHandler.next(leftCommandHandler);
         backwardCommandHandler.child(backwardMovementHandlerChainCreator.getChain());
-        RightCommandHandler rightCommandHandler = new RightCommandHandler();
         leftCommandHandler.next(rightCommandHandler);
-        leftCommandHandler.child(new LeftMovementHandler());
-        UnknownCommandHandler unknownCommandHandler = new UnknownCommandHandler();
+        leftCommandHandler.child(leftMovementHandler);
         rightCommandHandler.next(unknownCommandHandler);
-        rightCommandHandler.child(new RightMovementHandler());
+        rightCommandHandler.child(rightMovementHandler);
 
         commandHandler = forwardCommandHandler;
     }

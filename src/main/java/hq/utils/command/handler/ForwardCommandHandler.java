@@ -2,7 +2,7 @@ package hq.utils.command.handler;
 
 import hq.Rover;
 
-public class ForwardCommandHandler extends CommandHandler{
+public class ForwardCommandHandler extends CommandHandler {
 
     public ForwardCommandHandler() {
         super(MOVE_FORWARD);
@@ -10,10 +10,10 @@ public class ForwardCommandHandler extends CommandHandler{
 
     @Override
     public void execute(char command, Rover rover) {
-        if(this.command == command){
+        if (this.command == command) {
             this.movementHandler.move(rover);
         } else {
-            if(nextCommandHandler != null){
+            if (nextCommandHandler != null) {
                 nextCommandHandler.execute(command, rover);
             }
         }
