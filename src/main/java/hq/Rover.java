@@ -2,9 +2,8 @@ package hq;
 
 import hq.enums.Direction;
 import hq.model.Coordinates;
-import hq.utils.command.CommandExecutor;
+import hq.command.handler.CommandChainExecutor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +13,7 @@ public class Rover {
 
     private Coordinates coordinates;
     private String message;
-    private final CommandExecutor commandExecutor = CommandExecutor.getInstance();
-    private final List<Coordinates> obstacles = new ArrayList<>();
+    private final CommandChainExecutor commandChainExecutor = CommandChainExecutor.getInstance();
     private Direction direction;
 
     public Rover(Coordinates coordinates, Direction direction) {
@@ -25,21 +23,12 @@ public class Rover {
         this.direction = direction;
     }
 
-    public Rover(Coordinates coordinates, Direction direction, List<Coordinates> obstacles){
-        this(coordinates, direction);
-        this.obstacles.addAll(obstacles);
-    }
-
-    public Coordinates move(char[] commands) {
+    public Coordinates move(char[] commands, List<Coordinates> obstacles) {
         if (commands != null && commands.length > 0)
             for (char command : commands) {
-                commandExecutor.execute(command, this);
+                commandChainExecutor.execute(command, this, obstacles);
             }
         return coordinates;
-    }
-
-    public boolean isThereNoObstacleAt(Coordinates calculatedNewCoordinates){
-        return !obstacles.contains(calculatedNewCoordinates);
     }
 
     public Direction getDirection() {
@@ -50,8 +39,13 @@ public class Rover {
         this.direction = direction;
     }
 
-    public void moveTo(Coordinates coordinates) {
-        this.coordinates = coordinates;
+    public void moveTo(Coordinates coordinates, List<Coordinates> obstacles) {
+        if(isObstacleDetectedAt(coordinates, obstacles)) {
+            this.setMessage("Obstacle found at " + coordinates);
+        }
+        else {
+            this.coordinates = coordinates;
+        }
     }
 
     public Coordinates getCoordinates() {
@@ -64,5 +58,11 @@ public class Rover {
 
     public String getMessage() {
         return message;
+    }
+
+    private boolean isObstacleDetectedAt(Coordinates coordinates, List<Coordinates> obstacles) {
+        if(Objects.isNull(obstacles) || obstacles.isEmpty())
+            return false;
+        return obstacles.contains(coordinates);
     }
 }

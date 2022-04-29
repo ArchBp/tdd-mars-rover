@@ -2,11 +2,11 @@ package hq.model;
 
 import java.util.Objects;
 
-public class Coordinates {
+public final class Coordinates {
     public static final String X_COORDINATE_COULD_NOT_BE_NULL = "X coordinate could not be null";
     public static final String Y_COORDINATE_COULD_NOT_BE_NULL = "Y coordinate could not be null";
-    private Integer x;
-    private Integer y;
+    private final Integer x;
+    private final Integer y;
 
     public Coordinates(Integer x, Integer y) {
         Objects.requireNonNull(x, X_COORDINATE_COULD_NOT_BE_NULL);
@@ -19,32 +19,8 @@ public class Coordinates {
         return x;
     }
 
-    public void setX(Integer x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(Integer y) {
-        this.y = y;
-    }
-
-    public void incrementX(){
-        x++;
-    }
-
-    public void decrementX(){
-        x--;
-    }
-
-    public void incrementY(){
-        y++;
-    }
-
-    public void decrementY(){
-        y--;
     }
 
     @Override
@@ -67,7 +43,5 @@ public class Coordinates {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
-
-
     }
 }

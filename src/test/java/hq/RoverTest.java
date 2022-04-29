@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -44,7 +45,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Coordinates newCoordinates = rover.move(new char[]{'f'});
+        Coordinates newCoordinates = rover.move(new char[]{'f'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(2);
@@ -56,7 +57,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 4);
         final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Coordinates newCoordinates = rover.move(new char[]{'f'});
+        Coordinates newCoordinates = rover.move(new char[]{'f'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(3);
@@ -67,7 +68,7 @@ public class RoverTest {
     void mustMoveRoverForwardInTheEastDirection() {
         Coordinates startingPoint = new Coordinates(1, 4);
         final Rover rover = new Rover(startingPoint, Direction.E);
-        Coordinates newCoordinates = rover.move(new char[]{'f'});
+        Coordinates newCoordinates = rover.move(new char[]{'f'}, new ArrayList<>());
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(4);
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(2);
@@ -78,7 +79,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(2, 4);
         final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Coordinates newCoordinates = rover.move(new char[]{'f'});
+        Coordinates newCoordinates = rover.move(new char[]{'f'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(4);
@@ -90,7 +91,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Coordinates newCoordinates = rover.move(new char[]{'f'});
+        Coordinates newCoordinates = rover.move(new char[]{'f'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
@@ -102,7 +103,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(5, 1);
         final Rover rover = new Rover(startingPoint, Direction.E);
 
-        Coordinates newCoordinates = rover.move(new char[]{'f'});
+        Coordinates newCoordinates = rover.move(new char[]{'f'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
@@ -114,7 +115,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 5);
         final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Coordinates newCoordinates = rover.move(new char[]{'f'});
+        Coordinates newCoordinates = rover.move(new char[]{'f'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(5);
@@ -126,7 +127,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Coordinates newCoordinates = rover.move(new char[]{'f'});
+        Coordinates newCoordinates = rover.move(new char[]{'f'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
@@ -138,7 +139,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(3, 5);
         final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Coordinates newCoordinates = rover.move(new char[]{'f'});
+        Coordinates newCoordinates = rover.move(new char[]{'f'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(3);
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(5);
@@ -150,7 +151,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Coordinates newCoordinates = rover.move(new char[]{'b'});
+        Coordinates newCoordinates = rover.move(new char[]{'b'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
@@ -162,7 +163,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 5);
         final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Coordinates newCoordinates = rover.move(new char[]{'b'});
+        Coordinates newCoordinates = rover.move(new char[]{'b'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(5);
@@ -174,7 +175,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(3, 5);
         final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Coordinates newCoordinates = rover.move(new char[]{'b'});
+        Coordinates newCoordinates = rover.move(new char[]{'b'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(3);
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(5);
@@ -187,7 +188,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 2);
         final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Coordinates newCoordinates = rover.move(new char[]{'b'});
+        Coordinates newCoordinates = rover.move(new char[]{'b'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(1);
@@ -199,7 +200,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Coordinates newCoordinates = rover.move(new char[]{'b'});
+        Coordinates newCoordinates = rover.move(new char[]{'b'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getY()).isEqualTo(2);
@@ -211,7 +212,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(2, 1);
         final Rover rover = new Rover(startingPoint, Direction.E);
 
-        Coordinates newCoordinates = rover.move(new char[]{'b'});
+        Coordinates newCoordinates = rover.move(new char[]{'b'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
@@ -223,7 +224,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Coordinates newCoordinates = rover.move(new char[]{'b'});
+        Coordinates newCoordinates = rover.move(new char[]{'b'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(2);
@@ -235,7 +236,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(5, 1);
         final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Coordinates newCoordinates = rover.move(new char[]{'b'});
+        Coordinates newCoordinates = rover.move(new char[]{'b'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(1);
@@ -247,7 +248,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.E);
 
-        Coordinates newCoordinates = rover.move(new char[]{'b'});
+        Coordinates newCoordinates = rover.move(new char[]{'b'}, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isNotNull();
         Assertions.assertThat(newCoordinates.getX()).isEqualTo(5);
@@ -259,7 +260,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Coordinates returnedCoordinates = rover.move(new char[]{'r'});
+        Coordinates returnedCoordinates = rover.move(new char[]{'r'}, new ArrayList<>());
 
         Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.E);
         Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
@@ -270,7 +271,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.E);
 
-        Coordinates returnedCoordinates = rover.move(new char[]{'r'});
+        Coordinates returnedCoordinates = rover.move(new char[]{'r'}, new ArrayList<>());
 
         Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.S);
         Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
@@ -281,7 +282,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Coordinates returnedCoordinates = rover.move(new char[]{'r'});
+        Coordinates returnedCoordinates = rover.move(new char[]{'r'}, new ArrayList<>());
 
         Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.W);
         Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
@@ -292,7 +293,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Coordinates returnedCoordinates = rover.move(new char[]{'r'});
+        Coordinates returnedCoordinates = rover.move(new char[]{'r'}, new ArrayList<>());
 
         Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.N);
         Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
@@ -303,7 +304,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.E);
 
-        Coordinates returnedCoordinates = rover.move(new char[]{'l'});
+        Coordinates returnedCoordinates = rover.move(new char[]{'l'}, new ArrayList<>());
 
         Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.N);
         Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
@@ -314,7 +315,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.S);
 
-        Coordinates returnedCoordinates = rover.move(new char[]{'l'});
+        Coordinates returnedCoordinates = rover.move(new char[]{'l'}, new ArrayList<>());
 
         Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.E);
         Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
@@ -325,7 +326,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.W);
 
-        Coordinates returnedCoordinates = rover.move(new char[]{'l'});
+        Coordinates returnedCoordinates = rover.move(new char[]{'l'}, new ArrayList<>());
 
         Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.S);
         Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
@@ -336,7 +337,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.N);
 
-        Coordinates returnedCoordinates = rover.move(new char[]{'l'});
+        Coordinates returnedCoordinates = rover.move(new char[]{'l'}, new ArrayList<>());
 
         Assertions.assertThat(rover.getDirection()).isEqualTo(Direction.W);
         Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
@@ -347,7 +348,7 @@ public class RoverTest {
     void mustReturnExpectedPositionAfterMultipleCommands(Position initialPosition, char[] commands, Position expectedFinalPosition) {
         final Rover rover = new Rover(initialPosition.getCoordinates(), initialPosition.getDirection());
 
-        Coordinates newCoordinates = rover.move(commands);
+        Coordinates newCoordinates = rover.move(commands, new ArrayList<>());
 
         Assertions.assertThat(newCoordinates).isEqualTo(expectedFinalPosition.getCoordinates());
         Assertions.assertThat(rover.getDirection()).isEqualTo(expectedFinalPosition.getDirection());
@@ -356,9 +357,9 @@ public class RoverTest {
     @Test
     void mustReturnToCoordinates2x1yWhenObstacleIsEncounteredAtCoordinates3x1y() {
         final Coordinates obstacle = new Coordinates(3, 1);
-        final Rover rover = new Rover(new Coordinates(1, 1), Direction.E, List.of(obstacle));
+        final Rover rover = new Rover(new Coordinates(1, 1), Direction.E);
 
-        final Coordinates coordinates = rover.move(new char[]{'f', 'f'});
+        final Coordinates coordinates = rover.move(new char[]{'f', 'f'}, List.of(obstacle));
 
         final Coordinates expectedCoordinates = new Coordinates(2, 1);
         Assertions.assertThat(coordinates).isEqualTo(expectedCoordinates);
@@ -368,9 +369,9 @@ public class RoverTest {
     @Test
     void mustReturnToCoordinates2x3yWhenObstacleIsEncounteredAtCoordinates2x4y() {
         final Coordinates obstacle = new Coordinates(2, 4);
-        final Rover rover = new Rover(new Coordinates(2, 1), Direction.N, List.of(obstacle));
+        final Rover rover = new Rover(new Coordinates(2, 1), Direction.N);
 
-        final Coordinates coordinates = rover.move(new char[]{'f', 'f', 'f'});
+        final Coordinates coordinates = rover.move(new char[]{'f', 'f', 'f'}, List.of(obstacle));
 
         final Coordinates expectedCoordinates = new Coordinates(2, 3);
         Assertions.assertThat(coordinates).isEqualTo(expectedCoordinates);
@@ -380,9 +381,9 @@ public class RoverTest {
     @Test
     void mustReturnToCoordinates1x3yWhenObstacleIsEncounteredAtEdgeCoordinates5x3() {
         final Coordinates obstacle = new Coordinates(5, 3);
-        final Rover rover = new Rover(new Coordinates(2, 3), Direction.E, List.of(obstacle));
+        final Rover rover = new Rover(new Coordinates(2, 3), Direction.E);
 
-        final Coordinates coordinates = rover.move(new char[]{'b', 'b'});
+        final Coordinates coordinates = rover.move(new char[]{'b', 'b'}, List.of(obstacle));
 
         final Coordinates expectedCoordinates = new Coordinates(1, 3);
         Assertions.assertThat(coordinates).isEqualTo(expectedCoordinates);
@@ -392,9 +393,9 @@ public class RoverTest {
     @Test
     void mustReturnToCoordinates5x2yWhenObstacleIsEncounteredAtEdgeCoordinates1x2() {
         final Coordinates obstacle = new Coordinates(1, 2);
-        final Rover rover = new Rover(new Coordinates(4, 2), Direction.W, List.of(obstacle));
+        final Rover rover = new Rover(new Coordinates(4, 2), Direction.W);
 
-        final Coordinates coordinates = rover.move(new char[]{'b', 'b'});
+        final Coordinates coordinates = rover.move(new char[]{'b', 'b'}, List.of(obstacle));
 
         final Coordinates expectedCoordinates = new Coordinates(5, 2);
         Assertions.assertThat(coordinates).isEqualTo(expectedCoordinates);
@@ -408,7 +409,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.N);
 
-        final Throwable throwable = Assertions.catchThrowable(() -> rover.move(new char[]{command}));
+        final Throwable throwable = Assertions.catchThrowable(() -> rover.move(new char[]{command}, new ArrayList<>()));
 
         Assertions.assertThat(throwable).isExactlyInstanceOf(UnknownCommandException.class);
     }
@@ -418,7 +419,7 @@ public class RoverTest {
         Coordinates startingPoint = new Coordinates(1, 1);
         final Rover rover = new Rover(startingPoint, Direction.N);
 
-        final Coordinates returnedCoordinates = rover.move(null);
+        final Coordinates returnedCoordinates = rover.move(null, new ArrayList<>());
 
         Assertions.assertThat(returnedCoordinates).isEqualTo(startingPoint);
     }
