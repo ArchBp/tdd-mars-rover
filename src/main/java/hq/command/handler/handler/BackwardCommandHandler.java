@@ -4,6 +4,7 @@ import hq.Rover;
 import hq.command.handler.CommandChainExecutor;
 import hq.enums.Direction;
 import hq.model.Coordinates;
+import hq.model.Position;
 
 import java.util.List;
 
@@ -16,42 +17,38 @@ public class BackwardCommandHandler extends CommandHandler{
     @Override
     public void execute(char command, Rover rover, List<Coordinates> obstacles) {
         if(this.command == command){
-            Coordinates coordinatesToBeReturned = calculateNewCoordinates(rover);
-            rover.moveTo(coordinatesToBeReturned, obstacles);
+            Position newCalculatedPosition = calculateNewPosition(rover);
+            rover.moveTo(newCalculatedPosition, obstacles);
         }
     }
 
-    public Coordinates calculateNewCoordinates(Rover rover) {
+    public Position calculateNewPosition(Rover rover) {
         Coordinates coordinates = rover.getCoordinates();
         if (Direction.N == rover.getDirection()) {
             return moveBackwardNorth(rover, coordinates);
-        }
-        else if (Direction.S == rover.getDirection()) {
+        } else if (Direction.S == rover.getDirection()) {
             return moveBackwardSouth(rover, coordinates);
+        } else if (Direction.E == rover.getDirection()) {
+            return moveBackwardEast(rover, coordinates);
+        } else if (Direction.W == rover.getDirection()) {
+            return moveBackwardWest(rover, coordinates);
         }
-        else if (Direction.E == rover.getDirection()) {
-            return moveBackwardEast(coordinates);
-        }
-        else if (Direction.W == rover.getDirection()) {
-            return moveBackwardWest(coordinates);
-        }
-        return rover.getCoordinates();
+        return new Position(rover.getCoordinates(), rover.getDirection());
 
     }
 
-    public Coordinates moveBackwardWest(Coordinates coordinates) {
+    public Position moveBackwardWest(Rover rover, Coordinates coordinates) {
         int x = coordinates.getX();
         int y = coordinates.getY();
         if (x == CommandChainExecutor.HIGH_EDGE) {
             x = CommandChainExecutor.LOW_EDGE;
-        }
-        else {
+        } else {
             x++;
         }
-        return new Coordinates(x,y);
+        return new Position(new Coordinates(x,y), rover.getDirection());
     }
 
-    public Coordinates moveBackwardEast(Coordinates coordinates) {
+    public Position moveBackwardEast(Rover rover, Coordinates coordinates) {
         int x = coordinates.getX();
         int y = coordinates.getY();
         if (x == CommandChainExecutor.LOW_EDGE) {
@@ -60,30 +57,30 @@ public class BackwardCommandHandler extends CommandHandler{
         else {
             x--;
         }
-        return new Coordinates(x,y);
+        return new Position(new Coordinates(x,y), rover.getDirection());
     }
 
-    public Coordinates moveBackwardSouth(Rover rover, Coordinates coordinates) {
+    public Position moveBackwardSouth(Rover rover, Coordinates coordinates) {
         int x = coordinates.getX();
         int y = coordinates.getY();
         if (y == CommandChainExecutor.HIGH_EDGE) {
             x = (CommandChainExecutor.HIGH_EDGE - x) + 1;
-            rover.setDirection(Direction.N);
+            return new Position(new Coordinates(x,y), Direction.N);
         } else {
             y++;
+            return new Position(new Coordinates(x,y), rover.getDirection());
         }
-        return new Coordinates(x,y);
     }
 
-    public Coordinates moveBackwardNorth(Rover rover, Coordinates coordinates) {
+    public Position moveBackwardNorth(Rover rover, Coordinates coordinates) {
         int x = coordinates.getX();
         int y = coordinates.getY();
         if (y == CommandChainExecutor.LOW_EDGE) {
             x = (CommandChainExecutor.HIGH_EDGE - x) + 1;
-            rover.setDirection(Direction.S);
+            return new Position(new Coordinates(x,y), Direction.S);
         } else {
             y--;
+            return new Position(new Coordinates(x,y), rover.getDirection());
         }
-        return new Coordinates(x,y);
     }
 }

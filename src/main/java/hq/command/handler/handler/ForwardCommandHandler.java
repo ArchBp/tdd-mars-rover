@@ -4,6 +4,7 @@ import hq.Rover;
 import hq.command.handler.CommandChainExecutor;
 import hq.enums.Direction;
 import hq.model.Coordinates;
+import hq.model.Position;
 
 import java.util.List;
 
@@ -16,12 +17,12 @@ public class ForwardCommandHandler extends CommandHandler {
     @Override
     public void execute(char command, Rover rover, List<Coordinates> obstacles) {
         if (this.command == command) {
-            Coordinates coordinatesToBeReturned = calculateNewCoordinates(rover);
-            rover.moveTo(coordinatesToBeReturned, obstacles);
+            Position newCalculatedPosition = calculateNewPosition(rover);
+            rover.moveTo(newCalculatedPosition, obstacles);
         }
     }
 
-    public Coordinates calculateNewCoordinates(Rover rover) {
+    public Position calculateNewPosition(Rover rover) {
 
         if (Direction.N == rover.getDirection()) {
             return moveForwardNorth(rover);
@@ -32,33 +33,35 @@ public class ForwardCommandHandler extends CommandHandler {
         } else if (Direction.W == rover.getDirection()) {
             return moveForwardWest(rover);
         }
-        return rover.getCoordinates();
+        return new Position(rover.getCoordinates(), rover.getDirection());
     }
 
-    public Coordinates moveForwardWest(Rover rover) {
+    public Position moveForwardNorth(Rover rover) {
         int x = rover.getCoordinates().getX();
         int y = rover.getCoordinates().getY();
-        if (x == CommandChainExecutor.LOW_EDGE) {
-            x = CommandChainExecutor.HIGH_EDGE;
+        if (y == CommandChainExecutor.HIGH_EDGE) {
+            x = (CommandChainExecutor.HIGH_EDGE - x) + 1;
+            return new Position(new Coordinates(x,y), Direction.S);
         } else {
-            x--;
+            y++;
         }
-        return new Coordinates(x, y);
+        return new Position(new Coordinates(x,y), rover.getDirection());
     }
 
-    public Coordinates moveForwardSouth(Rover rover) {
+    public Position moveForwardSouth(Rover rover) {
         int x = rover.getCoordinates().getX();
         int y = rover.getCoordinates().getY();
         if (y == CommandChainExecutor.LOW_EDGE) {
             x = (CommandChainExecutor.HIGH_EDGE - x) + 1;
-            rover.setDirection(Direction.N);
+            return new Position(new Coordinates(x,y), Direction.N);
         } else {
             y--;
+            return new Position(new Coordinates(x,y), rover.getDirection());
         }
-        return new Coordinates(x, y);
+
     }
 
-    public Coordinates moveForwardEast(Rover rover) {
+    public Position moveForwardEast(Rover rover) {
         int x = rover.getCoordinates().getX();
         int y = rover.getCoordinates().getY();
         if (x == CommandChainExecutor.HIGH_EDGE) {
@@ -66,18 +69,17 @@ public class ForwardCommandHandler extends CommandHandler {
         } else {
             x++;
         }
-        return new Coordinates(x, y);
+        return new Position(new Coordinates(x,y), rover.getDirection());
     }
 
-    public Coordinates moveForwardNorth(Rover rover) {
+    public Position moveForwardWest(Rover rover) {
         int x = rover.getCoordinates().getX();
         int y = rover.getCoordinates().getY();
-        if (y == CommandChainExecutor.HIGH_EDGE) {
-            x = (CommandChainExecutor.HIGH_EDGE - x) + 1;
-            rover.setDirection(Direction.S);
+        if (x == CommandChainExecutor.LOW_EDGE) {
+            x = CommandChainExecutor.HIGH_EDGE;
         } else {
-            y++;
+            x--;
         }
-        return new Coordinates(x, y);
+        return new Position(new Coordinates(x,y), rover.getDirection());
     }
 }

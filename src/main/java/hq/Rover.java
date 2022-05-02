@@ -3,6 +3,7 @@ package hq;
 import hq.enums.Direction;
 import hq.model.Coordinates;
 import hq.command.handler.CommandChainExecutor;
+import hq.model.Position;
 
 import java.util.List;
 import java.util.Objects;
@@ -39,12 +40,12 @@ public class Rover {
         this.direction = direction;
     }
 
-    public void moveTo(Coordinates coordinates, List<Coordinates> obstacles) {
-        if(isObstacleDetectedAt(coordinates, obstacles)) {
-            this.setMessage("Obstacle found at " + coordinates);
-        }
-        else {
-            this.coordinates = coordinates;
+    public void moveTo(Position position, List<Coordinates> obstacles) {
+        if(isObstacleDetectedAt(position.getCoordinates(), obstacles)) {
+            this.setMessage("Obstacle found at " + position.getCoordinates());
+        } else {
+            this.coordinates = position.getCoordinates();
+            this.direction = position.getDirection();
         }
     }
 

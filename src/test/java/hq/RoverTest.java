@@ -3,6 +3,7 @@ package hq;
 import hq.enums.Direction;
 import hq.exception.UnknownCommandException;
 import hq.model.Coordinates;
+import hq.model.Position;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -438,23 +439,5 @@ public class RoverTest {
 
         Assertions.assertThat(throwable).isExactlyInstanceOf(NullPointerException.class)
                 .hasMessage(Rover.ROVER_DIRECTION_COULD_NOT_BE_NULL);
-    }
-
-    public static class Position {
-        private final Coordinates coordinates;
-        private final Direction direction;
-
-        public Position(Coordinates coordinates, Direction direction) {
-            this.coordinates = coordinates;
-            this.direction = direction;
-        }
-
-        public Coordinates getCoordinates() {
-            return coordinates;
-        }
-
-        public Direction getDirection() {
-            return direction;
-        }
     }
 }

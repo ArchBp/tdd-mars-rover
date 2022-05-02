@@ -11,7 +11,6 @@ public abstract class CommandHandler {
     public static final char TURN_RIGHT = 'r';
     public static final char TURN_LEFT = 'l';
     protected final Character command;
-    protected CommandHandler nextCommandHandler;
 
     public CommandHandler(Character command) {
         this.command = command;
